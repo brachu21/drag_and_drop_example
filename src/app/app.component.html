@@ -1,0 +1,39 @@
+<div class="dialog__component" cdkDropListGroup>
+  <h1>Strona drag and drop</h1>
+  <p>drag and drop component</p>
+
+  <div
+    cdkDropList
+    class="transport__list"
+    #listTravelTime="cdkDropList"
+    [cdkDropListData]="TRAVELTIMES"
+    cdkDropListConnectedTo="[listTransports]"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="noReturnPredicate">
+    <div class="transport__box"
+         cdkDragLockAxis="y"
+         cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      Travel time
+    </div>
+  </div>
+  <div class="seperator"></div>
+  <div
+    cdkDropList
+    class="transport__list"
+    #listTransports="cdkDropList"
+    [cdkDropListData]="TRANSPORTS"
+    cdkDropListConnectedTo="[listTravelTime]"
+    (cdkDropListDropped)="drop($event)">
+    <div class="transport__box"
+         *ngFor="let transport of TRANSPORTS"
+         cdkDragLockAxis="y"
+         cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      <div [ngClass]="{transport__travelTime__box: transport.isTravelTime}">
+        {{transport.title}}
+      </div>
+    </div>
+  </div>
+  <app-dragscroll></app-dragscroll>
+</div>
